@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QEvent
 from PyQt5.QtGui import QPen, QPainter, QColor, QCursor
 from PyQt5.QtWidgets import QGraphicsView, QMainWindow, QApplication, QGraphicsItem, QGraphicsScene, \
     QGraphicsTextItem, QWidget, QStyleOptionGraphicsItem
@@ -28,7 +28,6 @@ class Box(QGraphicsTextItem):
 
     def __initUi(self):
         self.setAcceptHoverEvents(True)
-        self.setTextInteractionFlags(Qt.TextEditable)
         self.setFlags(QGraphicsItem.ItemIsSelectable | QGraphicsItem.ItemIsFocusable | QGraphicsItem.ItemIsMovable)
 
     # init the edge direction for set correct reshape cursor based on it
@@ -101,15 +100,19 @@ class Box(QGraphicsTextItem):
         self.setTransform(tr)
         return super().keyPressEvent(e)
 
-    def mousePressEvent(self, e):
-        if e.button() == Qt.LeftButton:
-            if self.__resized:
-                self.__resize(e)
-        return super().mousePressEvent(e)
-
     def mouseMoveEvent(self, e):
         self.__setCursorShapeForCurrentPoint(e.pos())
         return super().mouseMoveEvent(e)
+
+    def mouseDoubleClickEvent(self, e):
+        super().mouseDoubleClickEvent(e)
+        if e.button() == Qt.LeftButton:
+            self.setTextInteractionFlags(Qt.TextEditable)
+            self.setFocus()
+
+    def focusOutEvent(self, e):
+        self.setTextInteractionFlags(Qt.NoTextInteraction)
+        return super().focusOutEvent(e)
 
     def hoverMoveEvent(self, e):
         p = e.pos()
@@ -118,32 +121,6 @@ class Box(QGraphicsTextItem):
             self.__setCursorShapeForCurrentPoint(p)
 
         return super().hoverMoveEvent(e)
-
-    def __resize(self, e):
-        rect = self.boundingRect()
-        p = e.pos()
-        x = p.x()
-        y = p.y()
-        if self.__cursor.shape() == Qt.SizeHorCursor:
-            if self.__left:
-                rect.setLeft(x)
-            elif self.__right:
-                rect.setRight(x)
-        elif self.__cursor.shape() == Qt.SizeVerCursor:
-            if self.__top:
-                rect.setTop(y)
-            elif self.__bottom:
-                rect.setBottom(y)
-        elif self.__cursor.shape() == Qt.SizeBDiagCursor:
-            if self.__top and self.__right:
-                rect.setTopRight(p)
-            elif self.__bottom and self.__left:
-                rect.setBottomLeft(p)
-        elif self.__cursor.shape() == Qt.SizeFDiagCursor:
-            if self.__top and self.__left:
-                rect.setTopLeft(p)
-            elif self.__bottom and self.__right:
-                rect.setBottomRight(p)
 
 
 class StyleGraphicsTextItemExample(QMainWindow):
