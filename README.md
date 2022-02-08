@@ -30,4 +30,4 @@ Result
 Note: The position of each boxes have nothing to do with code. I moved them to show result well to you.
 
 ## Note
-This project wasn't going well. I want to make resizable ```QGraphicsTextItem``` but i came up with better idea than this, so this is just for an example to people who want to study about this. Maybe someday i find ```QGraphicsTextItem``` useful to me but now? Not a chance. 
+This project wasn't going well. I want to make resizable ```QGraphicsTextItem``` but i came up with better idea than this, so this is just for an example to people who want to study about this. Maybe someday i will find ```QGraphicsTextItem``` useful to me but now? Not a chance. 
