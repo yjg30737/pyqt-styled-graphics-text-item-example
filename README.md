@@ -33,4 +33,4 @@ Note: The position of each boxes have nothing to do with code. I moved them to s
 This project wasn't going well. I want to make resizable ```QGraphicsTextItem``` but i came up with better idea than this, so this is just for an example to people who want to study about this. Maybe someday i will find ```QGraphicsTextItem``` useful to me but now? Not a chance. 
 
 ## See Also
-<a href="https://github.com/yjg30737/pyqt-textbox-graphics-widget.git">pyqt-textbox-graphics-widget</a> - This is based on ```QGraphicsWidget```.
+* <a href="https://github.com/yjg30737/pyqt-textbox-graphics-widget.git">pyqt-textbox-graphics-widget</a> - This is based on ```QGraphicsWidget```.
